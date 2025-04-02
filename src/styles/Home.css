@@ -1,0 +1,72 @@
+/* Home Container */
+.home-container {
+    width: 70%;
+    margin: 20px auto;
+    text-align: center;
+  }
+  
+  /* Category Buttons */
+  .category-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .category-buttons button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #3b82f6;
+    color: white;
+    transition: 0.2s ease-in-out;
+  }
+  
+  .category-buttons button:hover {
+    background: #2563eb;
+  }
+  
+  .category-buttons .active {
+    background: #1e40af;
+  }
+  
+  /* Questions List */
+  .questions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Pagination Controls */
+  .pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  .pagination-controls button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #3b82f6;
+    color: white;
+    transition: 0.2s ease-in-out;
+  }
+  
+  .pagination-controls button:hover {
+    background: #2563eb;
+  }
+  
+  .pagination-controls button:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+  }
+  

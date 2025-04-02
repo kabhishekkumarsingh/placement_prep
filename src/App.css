@@ -1,38 +1,115 @@
-.App {
-  text-align: center;
+/* App.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0073e6;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 5px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+nav h1 {
+  margin: 0;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin-right: 15px;
+}
+
+nav button {
+  background: white;
+  color: #0073e6;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+nav button:hover {
+  background: #e6f0ff;
+}
+
+.questions-container {
+  margin-top: 20px;
+}
+
+.question-card {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 10px;
+}
+
+.question-card h3 {
+  margin-top: 0;
+}
+
+.question-card p {
+  margin: 5px 0;
+}
+
+.question-card img {
+  max-width: 100%;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.question-card button {
+  background: #0073e6;
   color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 12px;
 }
 
-.App-link {
-  color: #61dafb;
+.question-card button:hover {
+  background: #005bb5;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.question-card input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.question-card input:disabled {
+  background: #f0f0f0;
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 10px;
   }
-  to {
-    transform: rotate(360deg);
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  nav a, nav button {
+    margin-top: 10px;
   }
 }
