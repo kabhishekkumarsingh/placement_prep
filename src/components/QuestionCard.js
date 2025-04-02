@@ -49,7 +49,11 @@ function QuestionCard({ question, user }) {
 
   return (
     <div className="question-card">
-      <h3>{question.text}</h3>
+<h3>
+  {question.text.split("\n").map((line, index) => (
+    <p key={index}>{line}</p>
+  ))}
+</h3>
       <p><strong>Company:</strong> {question.company || "N/A"}</p>
       <p><strong>Category:</strong> {question.questionType}</p>
       <p>Likes: {likes} | Dislikes: {dislikes}</p>

@@ -10,27 +10,37 @@ function PostQuestion({ user }) {
   const postQuestion = async () => {
     if (!questionText.trim()) return;
 
-    await addDoc(collection(db, "questions"), {
-      text: questionText,
-      company: company || "N/A",
-      questionType,
-      user: {
-        uid: user.uid,
-        name: user.displayName,
-        photoURL: user.photoURL,
-      },
-      likes: 0,
-      dislikes: 0,
-      timestamp: new Date(),
-    });
+    try {
+      await addDoc(collection(db, "questions"), {
+        text: questionText,
+        company: company || "N/A",
+        questionType,
+        user: {
+          uid: user.uid,
+          name: user.displayName,
+          photoURL: user.photoURL,
+        },
+        likes: 0,
+        dislikes: 0,
+        timestamp: new Date(),
+      });
 
-    setQuestionText("");
-    setCompany("");
+      alert("Question added successfully!"); // ✅ Success Message
+      setQuestionText("");
+      setCompany("");
+    } catch (error) {
+      alert("Error adding question: " + error.message); // ❌ Error Handling
+    }
   };
 
   return (
     <div className="form">
-      <input type="text" value={questionText} onChange={(e) => setQuestionText(e.target.value)} placeholder="Enter question" />
+      <textarea
+        value={questionText}
+        onChange={(e) => setQuestionText(e.target.value)}
+        placeholder="Enter question"
+        rows="4"
+      />
       <input type="text" value={company} onChange={(e) => setCompany(e.target.value)} placeholder="Company Name (Optional)" />
       <select value={questionType} onChange={(e) => setQuestionType(e.target.value)}>
         <option value="DSA">DSA</option>

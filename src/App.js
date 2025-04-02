@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import PostQuestion from "./pages/PostQuestion";
 import { auth, provider, db } from "./firebase";
@@ -51,6 +52,7 @@ function App() {
         <Route path="/" element={<Home user={user} />} />
         <Route path="/post" element={user ? <PostQuestion user={user} /> : <p>Please login to post a question</p>} />
       </Routes>
+      <Footer />
     </Router>
   );
 }
