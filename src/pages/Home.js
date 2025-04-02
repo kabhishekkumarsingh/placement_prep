@@ -12,47 +12,41 @@ function Home({ user }) {
 
   useEffect(() => {
     const fetchQuestions = async () => {
-      const q = query(collection(db, "questions"), orderBy("timestamp", "desc"));
-      const querySnapshot = await getDocs(q);
-      const fetchedQuestions = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setQuestions(fetchedQuestions);
-      setFilteredQuestions(fetchedQuestions);
+      try {
+        const q = query(collection(db, "questions"), orderBy("timestamp", "desc"));
+        const querySnapshot = await getDocs(q);
+        const fetchedQuestions = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        console.log("Fetched Questions:", fetchedQuestions); // ✅ Debugging Fetch
+        setQuestions(fetchedQuestions);
+      } catch (error) {
+        console.error("Error fetching questions:", error);
+      }
     };
 
     fetchQuestions();
   }, []);
 
-  // Function to filter questions by category
-  const filterQuestions = (category) => {
-    setSelectedCategory(category);
-    setCurrentPage(1); // Reset to first page when changing category
-    if (category === "ALL") {
+  useEffect(() => {
+    if (selectedCategory === "ALL") {
       setFilteredQuestions(questions);
     } else {
-      setFilteredQuestions(questions.filter((q) => q.questionType === category));
+      const filtered = questions.filter(
+        (q) => q.questionType?.toLowerCase() === selectedCategory.toLowerCase()
+      );
+      console.log(`Filtering for ${selectedCategory}:`, filtered); // ✅ Debugging Filter
+      setFilteredQuestions(filtered);
     }
-  };
+    setCurrentPage(1);
+  }, [questions, selectedCategory]);
 
-  // Calculate Pagination
+  // Pagination
   const indexOfLastQuestion = currentPage * questionsPerPage;
   const indexOfFirstQuestion = indexOfLastQuestion - questionsPerPage;
   const currentQuestions = filteredQuestions.slice(indexOfFirstQuestion, indexOfLastQuestion);
-
-  // Pagination Handlers
-  const nextPage = () => {
-    if (indexOfLastQuestion < filteredQuestions.length) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  const prevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
 
   return (
     <div className="home-container">
@@ -64,7 +58,10 @@ function Home({ user }) {
           <button
             key={category}
             className={selectedCategory === category ? "active" : ""}
-            onClick={() => filterQuestions(category)}
+            onClick={() => {
+              console.log("Category selected:", category); // ✅ Debugging Category Change
+              setSelectedCategory(category);
+            }}
           >
             {category}
           </button>
@@ -84,11 +81,14 @@ function Home({ user }) {
 
       {/* Pagination Controls */}
       <div className="pagination-controls">
-        <button onClick={prevPage} disabled={currentPage === 1}>
+        <button onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
           ⬅️ Previous
         </button>
         <span>Page {currentPage}</span>
-        <button onClick={nextPage} disabled={indexOfLastQuestion >= filteredQuestions.length}>
+        <button
+          onClick={() => setCurrentPage((prev) => (indexOfLastQuestion < filteredQuestions.length ? prev + 1 : prev))}
+          disabled={indexOfLastQuestion >= filteredQuestions.length}
+        >
           Next ➡️
         </button>
       </div>
