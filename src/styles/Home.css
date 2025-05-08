@@ -1,9 +1,11 @@
 /* Home Container */
 .home-container {
-    width: 70%;
-    margin: 20px auto;
-    text-align: center;
-  }
+  width: 70%;
+  margin: 0 auto;
+  padding-top: 80px; /* Adjust based on your navbar height */
+  text-align: center;
+}
+
   
   /* Category Buttons */
   .category-buttons {
